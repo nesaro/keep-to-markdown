@@ -79,7 +79,7 @@ def read_tasklist(list) -> str:
 def format_tags(tags) -> str:
     tag_list = 'tags:'
     for tag in tags:
-        tag_list += f' {tag};'
+        tag_list += f' #{tag} '
     return tag_list
 
 def read_write_notes(args):
@@ -141,14 +141,14 @@ def read_write_notes(args):
             # create Markdown file
             print(f'Convert "{title}" to markdown file.')
             with open(f'{notespath}{filename}.md', 'w', encoding='utf-8') as mdfile:
-                mdfile.write(f'---\n')
-                mdfile.write(f'title: {title}\n')
+                mdfile.write(f'# {title}\n')
                 if (title != iso_datetime):
                     mdfile.write(f'date: {iso_datetime}\n')
+                mdfile.write('\n')
                 # add tags
                 if(tags and not conv_folders):
                     mdfile.write(f'{format_tags(tags)}\n')
-                mdfile.write(f'---\n\n')
+                    mdfile.write('\n')
                 # add text content
                 try:
                     textContent = data['textContent']
